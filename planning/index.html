@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zhou calender</title>
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="icon" type="image/x-icon" href="./css/images/zhou.svg">
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <div id="monthDisplay"></div>
+        <div>
+          <button id="backButton">Back</button>
+          <button id="nextButton">Next</button>
+      </div>
+      </div>
+
+      <div id="weekdays">
+        <div>sunday</div>
+        <div>Monday</div>
+        <div>Tuesday</div>
+        <div>Wednesday</div>
+        <div>Thursday</div>
+        <div>Friday</div>
+        <div>Saturday</div>
+      </div>
+
+      <div id="calendar"></div>
+    </div>  
+
+<div id="newEventModal">
+  <h2>new Event</h2>
+  <input type="text" id="eventTitleInput" placeholder="Event Title">
+  <button id="saveButton">Save</button>
+  <button id="cancelButton">Cancel</button>
+
+</div>
+
+    <div id="modalBackDrop"></div>
+
+
+  </body>
+  <script src="./js/script.js"></script>
+</html>

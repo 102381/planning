@@ -1,0 +1,380 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #0d0d0d;
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+#container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #333;
+}
+
+#monthDisplay {
+  font-size: 1.8em;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+#header > div:last-child {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 16px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95em;
+  background: #222;
+  color: #fff;
+}
+
+button:hover {
+  background: #333;
+  border-color: #555;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+#nextButton,
+#backButton {
+  min-width: 80px;
+}
+
+#saveButton,
+#closeButton {
+  background: #333;
+  border-color: #555;
+}
+
+#saveButton:hover,
+#closeButton:hover {
+  background: #444;
+}
+
+#cancelButton,
+#deleteButton {
+  background: #d32f2f;
+  border-color: #d32f2f;
+}
+
+#cancelButton:hover,
+#deleteButton:hover {
+  background: #b71c1c;
+  border-color: #b71c1c;
+}
+
+#weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  padding: 20px 30px 10px;
+  background: #111;
+  border-bottom: 1px solid #333;
+}
+
+#weekdays div {
+  text-align: center;
+  font-weight: 600;
+  color: #aaa;
+  font-size: 0.9em;
+  padding: 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  padding: 30px;
+}
+
+.day {
+  min-height: 100px;
+  padding: 12px;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #fff;
+}
+
+.day:hover:not(.padding) {
+  border-color: #555;
+  background: #2a2a2a;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.day.padding {
+  background: #111;
+  border-color: #1a1a1a;
+  cursor: default;
+  opacity: 0.5;
+}
+
+.event {
+  font-size: 0.75em;
+  padding: 6px 8px;
+  background: #333;
+  color: #fff;
+  border-radius: 4px;
+  margin-top: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.event:hover {
+  background: #444;
+}
+
+.event.vacation {
+  background: #ff9800;
+  color: #000;
+}
+
+.event.vacation:hover {
+  background: #f57c00;
+}
+
+#modalBackDrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10;
+  animation: fadeIn 0.3s ease;
+}
+
+#newEventModal,
+#deleteEventModal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  background: #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid #333;
+  overflow: hidden;
+  animation: slideDown 0.3s ease;
+  width: 90%;
+  max-width: 400px;
+}
+
+#newEventModal h2,
+#deleteEventModal h2 {
+  background: #222;
+  color: #fff;
+  padding: 20px;
+  font-size: 1.3em;
+  margin: 0;
+  border-bottom: 1px solid #333;
+}
+
+#newEventModal > div,
+#deleteEventModal > div {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#eventTitleInput {
+  padding: 12px 15px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  font-size: 0.95em;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  width: 100%;
+  background: #222;
+  color: #fff;
+}
+
+#eventTitleInput:focus {
+  outline: none;
+  border-color: #555;
+  background: #2a2a2a;
+}
+
+#eventTitleInput.error {
+  border-color: #d32f2f;
+  background: #2a1a1a;
+}
+
+#eventText {
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: #aaa;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translate(-50%, -60%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  #container {
+    border-radius: 10px;
+    margin: 0;
+  }
+
+  #header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  #monthDisplay {
+    text-align: center;
+    font-size: 1.5em;
+  }
+
+  #header > div:last-child {
+    justify-content: stretch;
+  }
+
+  #header > div:last-child button {
+    flex: 1;
+  }
+
+  #weekdays {
+    padding: 15px 20px 10px;
+    gap: 6px;
+  }
+
+  #weekdays div {
+    font-size: 0.8em;
+    padding: 8px 0;
+  }
+
+  #calendar {
+    gap: 6px;
+    padding: 20px;
+  }
+
+  .day {
+    min-height: 90px;
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .event {
+    font-size: 0.7em;
+    padding: 5px 6px;
+    margin-top: 4px;
+  }
+
+  #newEventModal,
+  #deleteEventModal {
+    width: 95vw;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+
+  button {
+    padding: 12px 16px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  #header {
+    padding: 15px;
+  }
+
+  #monthDisplay {
+    font-size: 1.3em;
+  }
+
+  #calendar {
+    gap: 4px;
+    padding: 15px;
+  }
+
+  .day {
+    min-height: 80px;
+    padding: 8px;
+    font-size: 0.85em;
+  }
+
+  #weekdays {
+    padding: 12px 15px 8px;
+    gap: 4px;
+  }
+
+  #weekdays div {
+    font-size: 0.75em;
+    padding: 6px 0;
+  }
+}
