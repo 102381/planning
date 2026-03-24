@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: #0d0d0d;
   color: #fff;
   min-height: 100vh;
@@ -179,6 +179,16 @@ button:active {
 
 .event.vacation:hover {
   background: #f57c00;
+}
+
+.event.specialweek {
+  background: #2196f3;
+  color: #fff;
+  font-weight: 700;
+}
+
+.event.specialweek:hover {
+  background: #1976d2;
 }
 
 #modalBackDrop {
